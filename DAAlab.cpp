@@ -1,0 +1,623 @@
+//1) LAB 1
+
+
+
+//1.a) Write a program in C++ to handle the following task using vector
+        /*a. Insert n numbers in the vector
+        b. Print n numbers in the vector
+        c. Swap two numbers
+        d. Sort the n numbers in the vector
+        e. Reverse the previously sorted numbers
+        f. Delete 2 numbers from the vector
+            i. One number from the beginning
+            ii. Another from the last
+            iii. Display the remaining numbers in the vector*/
+
+
+/*#include <bits/stdc++.h>
+using namespace std;
+
+void insertion(vector <int> &rohil,int n)
+{
+    int num;
+    for(int i=0;i<n;i++)
+    {
+        cin>>num;
+        rohil[i]=num;
+    }
+}
+
+void print(vector <int> &rohil,int n)
+{
+    for(auto ele : rohil)
+    {
+        cout<<ele<<" ";
+    }
+}
+
+void swap(vector <int> &rohil,int n)
+{
+    swap(rohil[0],rohil[n-1]);
+}
+
+void sort(vector <int> &rohil,int n)
+{
+    sort(rohil.begin(),rohil.end());
+}
+
+void reverse(vector <int> &rohil,int n)
+{
+    reverse(rohil.begin(),rohil.end());
+}
+
+void del_first(vector <int> &rohil,int n)
+{
+    rohil.erase(rohil.begin());
+}
+
+void del_last(vector <int> &rohil,int n)
+{
+    rohil.pop_back();
+}
+
+int main()
+{
+    #ifndef ONLINE_JUDGE
+    freopen("inputDAA.txt", "r", stdin);
+    freopen("outputDAA.txt", "w", stdout);
+    #endif
+
+    int n;
+    cin>>n;
+    vector <int> rohil(n);
+
+    insertion(rohil,n);
+
+    cout<<"printing the vector: "<<endl;
+    print(rohil,n);
+    cout<<endl;
+    
+    cout<<endl<<"after swapping 2 elements in a vector: "<<endl;
+    swap(rohil,n);
+    print(rohil,n);
+    cout<<endl;
+
+    cout<<endl<<"after sorting the vector: "<<endl;
+    sort(rohil,n);
+    print(rohil,n);
+    cout<<endl;
+
+    cout<<endl<<"after reversing the sorted vector: "<<endl;
+    reverse(rohil,n);
+    print(rohil,n);
+    cout<<endl;
+
+    cout<<endl<<"after deleting the first element of the vector: "<<endl;
+    del_first(rohil,n);
+    print(rohil,n);
+    cout<<endl;
+    
+    cout<<endl<<"after deleting the first and last element of the vector: "<<endl;
+    del_last(rohil,n);
+    print(rohil,n);
+
+    return 0;
+}*/
+
+
+
+//1.b) Write a menu driven program in C++ to implement stack using 
+    /*STL that performs following tasks:
+        a. Insert the element in the stack
+        b. Delete the element from the stack
+        c. Display size of the stack
+        d. Fetch top most element from the stack
+        e. Quit*/
+
+
+/*#include <bits/stdc++.h>
+using namespace std;
+
+int main()
+{
+    #ifndef ONLINE_JUDGE
+    freopen("inputDAA.txt", "r", stdin);
+    freopen("outputDAA.txt", "w", stdout);
+    #endif
+
+    int choice;
+    stack<int> s;
+
+    do{
+        cin>>choice;
+
+        // cout << "1. Insert element in the stack" << endl;
+        // cout << "2. Pop an element from the stack" << endl;
+        // cout << "3. Display size of the stack" << endl;
+        // cout << "4. Display Top element of stack" << endl;
+        // cout << "5. Exit" << endl;
+        // cout << "Enter your choice: ";
+
+        switch(choice)
+        {
+            case 1:
+            int num;
+            cout<<"enter the number to be pushed:"<<endl;
+            cin>>num;
+            s.push(num);
+            break;
+
+            case 2:
+            cout<<"the top element has been poped"<<endl;
+            s.pop();
+            break;
+
+            case 3:
+            cout<<"the size of the satck is: "<<s.size()<<endl;
+            break;
+
+            case 4:
+            cout<<"the top element is: "<<s.top()<<endl;
+            break;
+
+            // case 5:
+            // cout<<"all the elements in the stack are: "<<endl;
+            // for(auto ele:s)//why can't i print all the elements of stack like this
+            // {
+            //     cout<<ele<<" ";
+            // }
+
+            // while(!s.empty())
+            // {
+            //     cout<<s.top()<<" ";
+            //     s.pop();
+            // }
+
+            default:
+            break;
+        }
+    }while(choice!=0);
+
+    return 0;
+}*/
+
+
+
+//1.c)Write a menu driven program in C++ to implement queue using STL 
+    /*that performs following tasks:
+            a. Insert the element in the queue
+            b. Delete the element from the queue
+            c. Display queue of the stack
+            d. Fetch front element from the stack
+            e. Fetch last element from the stack
+            f. Quit*/
+
+/*#include <bits/stdc++.h>
+using namespace std;
+
+int main()
+{
+    #ifndef ONLINE_JUDGE
+    freopen("inputDAA.txt", "r", stdin);
+    freopen("outputDAA.txt", "w", stdout);
+    #endif
+
+    int choice;
+    queue<int> q;
+
+    do{
+        cin>>choice;
+
+        switch(choice)
+        {
+            case 1:
+            int num;
+            cout<<"enter the number to be pushed:"<<endl;
+            cin>>num;
+            q.push(num);
+            break;
+
+            case 2:
+            cout<<"CMD: pop an element , the front element has been popped"<<endl;
+            q.pop();
+            break;
+
+            case 3:
+            cout<<"the elements in the queue are: "<<endl;
+            //for(int i=0;i<q.size();i++)//why is the not working with this for loop
+            while(!q.empty())
+            {
+                cout<<q.front()<<endl;
+                q.pop();
+            }
+
+            break;
+
+            case 4:
+            cout<<"the front element is: "<<q.front()<<endl;
+            break;
+
+            case 5:
+            cout<<"the last element is: "<<q.back()<<endl;
+            break;
+
+            default:
+            break;
+        }
+    }while(choice!=0);
+
+    return 0;
+}*/
+
+
+
+//1.d)Write a program in C++ to handle the following task using list
+            /*a. Insert n numbers in the List
+            * b. Print n numbers in the List
+            c. Sort the n numbers in the vector
+            d. Reverse the previously sorted numbers*/
+
+/*#include <iostream>
+#include <list>
+#include <algorithm>
+
+using namespace std;
+
+int main()
+{
+    #ifndef ONLINE_JUDGE
+    freopen("inputDAA.txt", "r", stdin);
+    freopen("outputDAA.txt", "w", stdout);
+    #endif
+
+    list<int> l;
+    list<int>::iterator it;
+    int n;
+    cout << "Enter number of elements in list: ";
+    cin >> n;
+    cout << endl;
+    cout << "Enter elements: ";
+    for (int i = 0; i < n; i++)
+    {
+        int x;
+        cin >> x;
+        l.push_back(x);
+    }
+    cout << endl;
+    cout << "Elements in list: ";
+    for (it = l.begin(); it != l.end(); it++)
+    {
+        cout << *it << " ";
+    }
+    cout << endl;
+    cout << "Elements in list after sorting: ";
+    l.sort();
+    for (it = l.begin(); it != l.end(); it++)
+    {
+        cout << *it << " ";
+    }
+    cout << endl;
+    cout << "Elements in list after reversing: ";
+    reverse(l.begin(), l.end());
+    for (it = l.begin(); it != l.end(); it++)
+    {
+        cout << *it << " ";
+    }
+    cout << endl;
+
+    return 0;
+}*/
+
+
+
+//1.e)Write a program in C++ using STL to find
+        /*a. Minimum and Maximum among n numbers
+        b. Addition (i.e. sum) of n numbers
+        c. Swap the alternate numbers in the list 
+        e.g. 1,2,3,4 will be 2,1,4,3 after swapping*/
+
+/*using namespace std;
+
+void insertion(vector<int> &v)
+{
+    for(int i=0;i<v.size();i++)
+    {
+        cin>>v[i];
+    }
+}
+
+void print(vector<int> &v)
+{
+    for(auto ele:v)
+    {
+        cout<<ele<<" ";
+    }
+    cout << endl;
+}
+
+pair<int,int> MinandMax(vector<int> &v)
+{
+    int min=v[0];
+    int max=v[0];
+    for(int i=0;i<v.size();i++)
+    {
+        if(v[i]<min)
+        {
+            min=v[i];
+        }
+        if(v[i]>max)
+        {
+            max=v[i];
+        }
+    }
+    return {min, max};
+}
+
+
+void SumOfnNum(vector<int> &v)
+{
+    // int sum=0;
+
+    // for(auto ele:v)
+    // {
+    //     sum+=ele;
+    // }
+    // cout<<"Sum is :"<<sum<<endl;
+    cout<<accumulate(v.begin(),v.end(),0);
+    cout<<endl;
+
+}
+
+void SwapAdj(vector<int> &v)
+{
+    for(int i=0;i<v.size()-1;i+=2)
+    {
+        swap(v[i],v[i+1]);
+    }
+    print(v);
+    
+}
+
+int main()
+{
+    #ifndef ONLINE_JUDGE
+    freopen("inputDAA.txt", "r", stdin);
+    freopen("outputDAA.txt", "w", stdout);
+    #endif
+
+    int n;
+    cout<<"no. of elements: "<<endl;
+    cin>>n;
+
+    vector<int> v(n);
+
+    insertion(v);
+    
+    print(v);
+
+    auto result=MinandMax(v);//pair datatype
+    cout<<"min term: "<<result.first<<endl;
+    cout<<"min term: "<<result.second<<endl;
+
+    SumOfnNum(v);
+
+    SwapAdj(v);
+}*/
+
+
+
+
+//2) LAB 2
+
+//insertion sort
+
+/*#include <bits/stdc++.h>
+#include <chrono>
+using namespace std;
+using namespace std::chrono;
+
+void insertion_sort(vector<int> &arr)
+{
+    for(int j=1;j<arr.size();j++)
+    {
+        int key=arr[j];
+        int i=j-1;
+
+        while(i>=0 and arr[i]>key)
+        {
+            arr[i+1]=arr[i];
+            i=i-1;
+        }
+        arr[i+1]=key;
+    }
+}
+
+int main()
+{
+    #ifndef ONLINE_JUDGE
+    freopen("inputDAA.txt", "r", stdin);
+    freopen("outputDAA.txt", "w", stdout);
+    #endif
+
+    vector<int> values(10000);
+    auto f = []() -> int { return rand() % 10000; };
+    generate(values.begin(), values.end(), f);
+    auto start = high_resolution_clock::now();
+    sort(values.begin(), values.end());
+    auto stop = high_resolution_clock::now();
+    auto duration = duration_cast<microseconds>(stop - start);
+    cout << "Time taken by function: "
+         << duration.count() << " microseconds" << endl;
+
+
+    int n;
+    cout<<"enter the size: "<<endl;
+    cin>>n;
+
+    vector<int> arr(n);
+
+    cout<<"Enter the elements: "<<endl;
+    for(int i=0;i<arr.size();i++)
+    {
+        // int num;
+        // cin>>num;
+        arr[i]=rand();
+    }
+
+    cout<<"Before sorting: "<<endl;
+    for(auto ele:arr)
+    {
+        cout<<ele<<endl;
+    }
+
+    insertion_sort(arr);
+
+    cout<<"After sorting: "<<endl;
+    for(auto ele:arr)
+    {
+        cout<<ele<<endl;
+    }
+}*/
+
+//selection sort
+
+/*#include <bits/stdc++.h>
+#include <chrono>
+using namespace std;
+using namespace std::chrono;
+
+void selection_sort(vector<int> &arr)
+{
+    for(int i=1;i<arr.size()-1;i++)
+    {
+        int min=i;
+
+        for(int j=i+1;j=arr.size();j++)
+        {
+            if(arr[j]<arr[min] && j!=min)
+            {
+                min=j;
+            }
+        }
+
+        int temp=arr[min];
+        arr[min]=arr[i];
+        arr[i]=temp;
+    }
+}
+
+int main()
+{
+    #ifndef ONLINE_JUDGE
+    freopen("inputDAA.txt", "r", stdin);
+    freopen("outputDAA.txt", "w", stdout);
+    #endif
+
+    vector<int> values(10000);
+    auto f = []() -> int { return rand() % 10000; };
+    generate(values.begin(), values.end(), f);
+    auto start = high_resolution_clock::now();
+    sort(values.begin(), values.end());
+    auto stop = high_resolution_clock::now();
+    auto duration = duration_cast<microseconds>(stop - start);
+    cout << "Time taken by function: "
+         << duration.count() << " microseconds" << endl;
+
+
+    int n;
+    cout<<"enter the size: "<<endl;
+    cin>>n;
+
+    vector<int> arr(n);
+
+    cout<<"Enter the elements: "<<endl;
+    for(int i=0;i<arr.size();i++)
+    {
+        int num;
+        cin>>num;
+        arr[i]=num;
+    }
+
+    cout<<"Before sorting: "<<endl;
+    for(auto ele:arr)
+    {
+        cout<<ele<<endl;
+    }
+
+    selection_sort(arr);
+
+    cout<<"After sorting: "<<endl;
+    for(auto ele:arr)
+    {
+        cout<<ele<<endl;
+    }
+}*/
+
+/*#include<iostream>
+#include<chrono>
+#include<time.h>
+#include<vector>
+
+using namespace std;
+using namespace std::chrono;
+
+void selectionSort(vector<int> &arr){
+    for(int i=0;i<arr.size()-1;i++){
+        for(int j=i+1;j<arr.size();j++){
+            if(arr[i]>arr[j]){
+                int temp=arr[i];
+                arr[i]=arr[j];
+                arr[j]=temp;
+            }
+        }
+    }
+}
+void print(vector<int> &arr){
+    for(int i=0;i<arr.size();i++){
+        cout<<arr[i]<<" ";
+    }
+    cout<<endl;
+}
+int main(){
+    #ifndef ONLINE_JUDGE
+    freopen("inputDAA.txt", "r", stdin);
+    freopen("outputDAA.txt", "w", stdout);
+    #endif
+
+    int n;
+    cout<<"Enter number of elements: "<<endl;
+    cin>>n;
+    vector<int> arr(n);
+
+    for(int i=0;i<n;i++){
+        arr[i] = i+1;
+    }
+    auto start = high_resolution_clock::now();
+    selectionSort(arr);
+    auto end = high_resolution_clock::now();
+    cout<<duration_cast<microseconds>(end-start).count()<<" microseconds INCREASING"<<endl;
+
+    for(int i=0;i<n;i++){
+        arr[i] = n-i+1;
+    }
+    start = high_resolution_clock::now();
+    selectionSort(arr);
+    end = high_resolution_clock::now();
+    cout<<duration_cast<microseconds>(end-start).count()<<" microseconds DECREASING"<<endl;
+
+    for(int i=0;i<n;i++){
+        arr[i] = rand()%n+1;
+    }
+    start = high_resolution_clock::now();
+    selectionSort(arr);
+    end = high_resolution_clock::now();
+    cout<<duration_cast<microseconds>(end-start).count()<<" microseconds RANDOM"<<endl;
+
+    return 0;
+}
+*/
+
+
+
+
+//3) lab 3

@@ -126,6 +126,12 @@ g.dfs('a','e')"""
 
 """class Graph():
 
+# 5
+# 4
+# a,b
+# a,c
+# a,d
+# b,e
 
 
     def __init__(self):
@@ -194,6 +200,8 @@ g.dfs('a','e')"""
         self._dfs_helper(start_state_DFS,visited_DFS,goal_state_DFS)
         print("DFS end....")
 
+        # print(visited_DFS)
+
 
 
     def BFS(self,start_state_BFS,goal_state_BFS):
@@ -212,7 +220,6 @@ g.dfs('a','e')"""
             current_state=queue.pop(0)
             print(current_state)
 
-
             if(current_state==goal_state_BFS):
                 return
             
@@ -227,9 +234,9 @@ g.dfs('a','e')"""
 g=Graph()
 g.print_graph()
 print()
-g.DFS('a','c')
+g.DFS('a'," ")
 print()
-g.BFS('a','c')
+g.BFS('a',' ')
 print()
 print(g.graph_adj_list)
 print()"""
@@ -391,7 +398,7 @@ class eight_puzzle_proble():
                 self.print_state(state)
                 return
 
-            #self.print_state(state)
+            self.print_state(state)
             count+=1
             
             if(not visited.get(state_str,False)):

@@ -1,0 +1,1 @@
+{"name":"Local: Ai-search-algo","url":"c:\\dsa_codes\\DSA and DAA ROHIL_20BRS1204\\Ai-search-algo.py","tests":[{"id":1645309475370,"input":"5\n4\nTrue\na b\na c\na d\nb e","output":""}],"interactive":false,"memoryLimit":1024,"timeLimit":3000,"srcPath":"c:\\dsa_codes\\DSA and DAA ROHIL_20BRS1204\\Ai-search-algo.py","group":"local","local":true}

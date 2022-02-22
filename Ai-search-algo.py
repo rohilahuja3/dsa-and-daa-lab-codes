@@ -297,3 +297,4 @@ class eight_puzzle_probolem_using_BFS():
 g=eight_puzzle_probolem_using_BFS()
 initial_state=[[-1,5,2],[1,8,3],[4,7,6]]
 g.BFS(initial_state)
+

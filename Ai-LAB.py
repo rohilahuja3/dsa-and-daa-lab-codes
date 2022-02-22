@@ -430,178 +430,444 @@ if flag==False:
 
     #2) UCS
 
-    """import math
-import time
-from operator import itemgetter
+#     import math
+# import time
+# from operator import itemgetter
  
-PUZZLE_TYPE = 8
-MAT_SIZE = int(math.sqrt(PUZZLE_TYPE + 1))
+# PUZZLE_TYPE = 8
+# MAT_SIZE = int(math.sqrt(PUZZLE_TYPE + 1))
  
-class PriorityQueue(object):
+# class PriorityQueue(object):
  
-    def __init__(self):
-        self.elements = []
-        self.max_elements = 0
+#     def __init__(self):
+#         self.elements = []
+#         self.max_elements = 0
  
-    def get_max_elements(self):
-    	return self.max_elements
+#     def get_max_elements(self):
+#     	return self.max_elements
  
-    def empty(self):
-        return len(self.elements) == 0
+#     def empty(self):
+#         return len(self.elements) == 0
  
-    def put(self, item, h=0, g=0, priority=0):
-        self.elements.append((priority, h, g, item))
-        self.elements.sort(key=itemgetter(0))
-        self.max_elements = self.max_elements if self.max_elements > len(self.elements) else len(self.elements)
+#     def put(self, item, h=0, g=0, priority=0):
+#         self.elements.append((priority, h, g, item))
+#         self.elements.sort(key=itemgetter(0))
+#         self.max_elements = self.max_elements if self.max_elements > len(self.elements) else len(self.elements)
  
-    def get_item(self):
-        return self.elements.pop(0)
+#     def get_item(self):
+#         return self.elements.pop(0)
  
-class Problem(object):
+# class Problem(object):
  
-	def __init__(self, initial_state=None):
-		self.initial_state = initial_state
-		self.goal_state = self.get_goal()
-		self.explored = []
+# 	def __init__(self, initial_state=None):
+# 		self.initial_state = initial_state
+# 		self.goal_state = self.get_goal()
+# 		self.explored = []
  
-	def goal_test(self, node):
-		self.explored.append(node)
-		return node == self.goal_state
+# 	def goal_test(self, node):
+# 		self.explored.append(node)
+# 		return node == self.goal_state
  
-	def get_level(self):
-		return len(self.explored);
+# 	def get_level(self):
+# 		return len(self.explored);
  
-	def is_explored(self, node):
-		return node in self.explored
+# 	def is_explored(self, node):
+# 		return node in self.explored
  
-	def get_current_state(self):
-		return self.initial_state
+# 	def get_current_state(self):
+# 		return self.initial_state
  
-	def get_goal_state(self):
-		return self.goal_state
+# 	def get_goal_state(self):
+# 		return self.goal_state
  
-	def get_goal(self):
-		goal = []
-		for x in xrange(1, PUZZLE_TYPE + 1):
-			goal.append(x)
-		goal.append(-1)
-		return goal
+# 	def get_goal(self):
+# 		goal = []
+# 		for x in xrange(1, PUZZLE_TYPE + 1):
+# 			goal.append(x)
+# 		goal.append(-1)
+# 		return goal
  
-	def print_current_board(self):
-		print_board(self.initial_state)
- 
- 
-def print_board(mat):
-	print "\nBoard:"
-	print "*" * 5 * MAT_SIZE
-	for index, val in enumerate(mat):
-		if (index + 1) % MAT_SIZE == 0:
-			print val if val != -1 else "x"
-		else:
-			print val if val != -1 else "x", " ",
-	print "*" * 5 * MAT_SIZE
+# 	def print_current_board(self):
+# 		print_board(self.initial_state)
  
  
-def can_move_up(mat):
-	return True if mat.index(-1) >= MAT_SIZE else False
- 
-def can_move_down(mat):
-	return True if mat.index(-1) < PUZZLE_TYPE + 1 - MAT_SIZE else False
- 
-def can_move_left(mat):
-	return False if mat.index(-1) % MAT_SIZE == 0 else True
- 
-def can_move_right(mat):
-	return False if mat.index(-1) % MAT_SIZE == MAT_SIZE - 1 else True
- 
-def move_x_up(mat):
-	if can_move_up(mat):
-		index = mat.index(-1)
-		mat[index - MAT_SIZE], mat[index] = mat[index], mat[index - MAT_SIZE]
-		return mat
-	return None
- 
-def move_x_down(mat):
-	if can_move_down(mat):
-		index = mat.index(-1)
-		mat[index + MAT_SIZE], mat[index] = mat[index], mat[index + MAT_SIZE]
-		return mat
-	return None
- 
-def move_x_left(mat):
-	if can_move_left(mat):
-		index = mat.index(-1)
-		mat[index - 1], mat[index] = mat[index], mat[index - 1]
-		return mat
-	return None
- 
-def move_x_right(mat):
-	if can_move_right(mat):
-		index = mat.index(-1)
-		mat[index + 1], mat[index] = mat[index], mat[index + 1]
-		return mat
-	return None
- 
-def general_search(problem, queueing_func):
-	depth = 0
-	nodes = PriorityQueue()
-	nodes.put(problem.get_current_state())
-	while not nodes.empty():
-		entire_node = nodes.get_item()
-		node = entire_node[3]
-		if (entire_node[2] or entire_node[1]):
-			print "The best state to expand with a g(n) = %d and h(n) = %d is.." % (entire_node[2], entire_node[1]),
-		print_board(node)
-		if problem.goal_test(node): 
-			print "Goal State"
-			print "To solve this problem the search algorithm expanded a total of %d nodes." % problem.get_level()
-			print "The maximum number of nodes in the queue at any one time was %d."% nodes.get_max_elements()
-			print "The depth of the goal node was %d" % entire_node[2]
-			return node
-		print "Expanding this state\n\n"
-		queueing_func(nodes, expand(entire_node, problem))
-		depth += 1
- 
-def expand(node, problem):
-	all_nodes = PriorityQueue()
-	node1 = move_x_up(node[3][:])
-	node2 = move_x_down(node[3][:])
-	node3 = move_x_left(node[3][:])
-	node4 = move_x_right(node[3][:])
-	if node1 and not problem.is_explored(node1):
-		all_nodes.put(node1, 0, node[2] + 1, 1)
-	if node2 and not problem.is_explored(node2):
-		all_nodes.put(node2, 0, node[2] + 1, 3)
-	if node3 and not problem.is_explored(node3):
-		all_nodes.put(node3, 0, node[2] + 1, 2)
-	if node4 and not problem.is_explored(node4):
-		all_nodes.put(node4, 0, node[2] + 1, 4)
-	return all_nodes
- 
-def uniform_cost_search(nodes, new_nodes):
-	while not new_nodes.empty():
-		node = new_nodes.get_item()
-		nodes.put(node[3], 0, node[2], 0)
+# def print_board(mat):
+# 	print "\nBoard:"
+# 	print "*" * 5 * MAT_SIZE
+# 	for index, val in enumerate(mat):
+# 		if (index + 1) % MAT_SIZE == 0:
+# 			print val if val != -1 else "x"
+# 		else:
+# 			print val if val != -1 else "x", " ",
+# 	print "*" * 5 * MAT_SIZE
  
  
+# def can_move_up(mat):
+# 	return True if mat.index(-1) >= MAT_SIZE else False
+ 
+# def can_move_down(mat):
+# 	return True if mat.index(-1) < PUZZLE_TYPE + 1 - MAT_SIZE else False
+ 
+# def can_move_left(mat):
+# 	return False if mat.index(-1) % MAT_SIZE == 0 else True
+ 
+# def can_move_right(mat):
+# 	return False if mat.index(-1) % MAT_SIZE == MAT_SIZE - 1 else True
+ 
+# def move_x_up(mat):
+# 	if can_move_up(mat):
+# 		index = mat.index(-1)
+# 		mat[index - MAT_SIZE], mat[index] = mat[index], mat[index - MAT_SIZE]
+# 		return mat
+# 	return None
+ 
+# def move_x_down(mat):
+# 	if can_move_down(mat):
+# 		index = mat.index(-1)
+# 		mat[index + MAT_SIZE], mat[index] = mat[index], mat[index + MAT_SIZE]
+# 		return mat
+# 	return None
+ 
+# def move_x_left(mat):
+# 	if can_move_left(mat):
+# 		index = mat.index(-1)
+# 		mat[index - 1], mat[index] = mat[index], mat[index - 1]
+# 		return mat
+# 	return None
+ 
+# def move_x_right(mat):
+# 	if can_move_right(mat):
+# 		index = mat.index(-1)
+# 		mat[index + 1], mat[index] = mat[index], mat[index + 1]
+# 		return mat
+# 	return None
+ 
+# def general_search(problem, queueing_func):
+# 	depth = 0
+# 	nodes = PriorityQueue()
+# 	nodes.put(problem.get_current_state())
+# 	while not nodes.empty():
+# 		entire_node = nodes.get_item()
+# 		node = entire_node[3]
+# 		if (entire_node[2] or entire_node[1]):
+# 			print "The best state to expand with a g(n) = %d and h(n) = %d is.." % (entire_node[2], entire_node[1]),
+# 		print_board(node)
+# 		if problem.goal_test(node): 
+# 			print "Goal State"
+# 			print "To solve this problem the search algorithm expanded a total of %d nodes." % problem.get_level()
+# 			print "The maximum number of nodes in the queue at any one time was %d."% nodes.get_max_elements()
+# 			print "The depth of the goal node was %d" % entire_node[2]
+# 			return node
+# 		print "Expanding this state\n\n"
+# 		queueing_func(nodes, expand(entire_node, problem))
+# 		depth += 1
+ 
+# def expand(node, problem):
+# 	all_nodes = PriorityQueue()
+# 	node1 = move_x_up(node[3][:])
+# 	node2 = move_x_down(node[3][:])
+# 	node3 = move_x_left(node[3][:])
+# 	node4 = move_x_right(node[3][:])
+# 	if node1 and not problem.is_explored(node1):
+# 		all_nodes.put(node1, 0, node[2] + 1, 1)
+# 	if node2 and not problem.is_explored(node2):
+# 		all_nodes.put(node2, 0, node[2] + 1, 3)
+# 	if node3 and not problem.is_explored(node3):
+# 		all_nodes.put(node3, 0, node[2] + 1, 2)
+# 	if node4 and not problem.is_explored(node4):
+# 		all_nodes.put(node4, 0, node[2] + 1, 4)
+# 	return all_nodes
+ 
+# def uniform_cost_search(nodes, new_nodes):
+# 	while not new_nodes.empty():
+# 		node = new_nodes.get_item()
+# 		nodes.put(node[3], 0, node[2], 0)
  
  
+ 
+ 
+# if __name__ == "__main__":
+# 	print "Welcome to the awesome %d-puzzle solver." % PUZZLE_TYPE
+# 	mat = []
+ 
+# 	print "Enter elements for %d Puzzle." % PUZZLE_TYPE
+# 	print "NOTE: Use \"x\" for blank.\n"
+# 	for i in xrange(MAT_SIZE):
+# 		print "Enter elements for row %d" % (i + 1)
+# 		mat.extend([-1 if x == "x" else int(x) for x in raw_input().split()])
+ 
+# 	problem = Problem(mat)
+# 	print "Initial State",
+# 	problem.print_current_board()
+# 	print "Goal State",
+# 	print_board(problem.get_goal_state())
+# 	print "\n\n"
+# 	print "*"*50
+ 
+# 	general_search(problem, uniform_cost_search)
+
+
+
+# lab 4
+
+  # a* algo
+"""class Node:
+
+  def __init__(self,data,level,fval):
+      self.data = data
+      self.level = level
+      self.fval = fval
+
+  def generate_child(self):
+      x,y = self.find(self.data,'_')
+      val_list = [[x,y-1],[x,y+1],[x-1,y],[x+1,y]]
+      children = []
+      for i in val_list:
+          child = self.shuffle(self.data,x,y,i[0],i[1])
+          if child is not None:
+              child_node = Node(child,self.level+1,0)
+              children.append(child_node)
+      return children
+      
+  def shuffle(self,puz,x1,y1,x2,y2):
+      if x2 >= 0 and x2 < len(self.data) and y2 >= 0 and y2 < len(self.data):
+          temp_puz = []
+          temp_puz = self.copy(puz)
+          temp = temp_puz[x2][y2]
+          temp_puz[x2][y2] = temp_puz[x1][y1]
+          temp_puz[x1][y1] = temp
+          return temp_puz
+      else:
+          return None
+          
+
+  def copy(self,root):
+      temp = []
+      for i in root:
+          t = []
+          for j in i:
+              t.append(j)
+          temp.append(t)
+      return temp    
+          
+  def find(self,puz,x):
+      for i in range(0,len(self.data)):
+          for j in range(0,len(self.data)):
+              if puz[i][j] == x:
+                  return i,j
+
+
+class Puzzle:
+  def __init__(self,size):
+      self.n = size
+      self.open = []
+      self.closed = []
+
+  def accept(self):
+      puz = []
+      for i in range(0,self.n):
+          temp = input().split(" ")
+          puz.append(temp)
+      return puz
+
+  def f(self,start,goal):
+      return self.h(start.data,goal)+start.level
+
+  def h(self,start,goal):
+      temp = 0
+      for i in range(0,self.n):
+          for j in range(0,self.n):
+              if start[i][j] != goal[i][j] and start[i][j] != '_':
+                  temp += 1
+      return temp
+      
+
+  def process(self):
+      print("Enter the start state matrix \n")
+      start = self.accept()
+      print("Enter the goal state matrix \n")        
+      goal = self.accept()
+
+      start = Node(start,0,0)
+      start.fval = self.f(start,goal)
+      self.open.append(start)
+      print("\n\n")
+      while True:
+          cur = self.open[0]
+          print("")
+          print("  | ")
+          print("  | ")
+          print(" \\\'/ \n")
+          for i in cur.data:
+              for j in i:
+                  print(j,end=" ")
+              print("")
+          if(self.h(cur.data,goal) == 0):
+              break
+          for i in cur.generate_child():
+              i.fval = self.f(i,goal)
+              self.open.append(i)
+          self.closed.append(cur)
+          del self.open[0]
+          self.open.sort(key = lambda x:x.fval,reverse=False)
+
+
+puz = Puzzle(3)
+puz.process()"""
+
+"""import numpy as np
+import sys
+
+
+class Puzzle8():
+
+    def __init__(self, start, goal):
+        self.table_of_states = {}
+        self.goal_state = self.get_state(goal)
+        self.initial_state = self.get_state(start)
+        self.current_state = []
+        self.reachable_states = []
+        self.counter = 0
+        self.table_coord = {0: (0, 0), 1: (0, 1), 2: (0, 2), 3: (1, 0), 4: (1, 1), 5: (1, 2), 6: (2, 0),
+                            7: (2, 1), 8: (2, 2)}
+
+    def get_tag(self, state):
+        tag = ''
+        for i in state:
+            tag += str(i)
+        return tag
+
+    def add_state_to_list(self, tag, g, h, parent, explored):
+        self.table_of_states[tag] = [g, h, g + h, parent, explored]
+        return
+
+    def print_state(self, state):
+        print("\n", state[0:3])
+        print(state[3:6])
+        print(state[6:9], "\n")
+        return
+
+    def get_state(self, tag):
+        state = []
+        for i in range(9):
+            state.append(int(tag[i]))
+        return state[:]
+
+    def find_state_minimum_cost(self):
+        my_list = [x for x in list(self.table_of_states.values()) if x[-1] == 0]
+        min1 = min([x[2] for x in my_list])
+        min2 = [x for x in my_list if x[2] == min1]
+        key = [x for x, y in list(self.table_of_states.items()) if y == min2[0]]
+        if type(key) == list:
+            return key[0]
+        return key
+
+    def distance_states(self, s1, s2):
+        d = 0
+        for i in range(len(s1)):
+            ind1 = self.table_coord[s1.index(i)]
+            ind2 = self.table_coord[s2.index(i)]
+            d += abs(ind1[0] - ind2[0]) + abs(ind1[1] - ind2[1])
+        return d
+
+    def compute_h(self, state):
+        return self.distance_states(state, self.goal_state)
+
+    def mark_as_explored(self, state):
+        self.table_of_states[self.get_tag(state)][-1] = 1
+        return
+
+    def print_sequence(self, state):
+        list_sequence = [self.get_tag(state)]
+        i = self.table_of_states[self.get_tag(state)][3]
+        while i != 0:
+            list_sequence.append(i)
+            i = self.table_of_states[self.get_tag(i)][3]
+        count = 1
+        for j in reversed(list_sequence):
+            if count == 1:
+                print("\nInitial state :")
+                self.print_state(self.get_state(j))
+            elif count == self.counter + 1:
+                print("Goal state :")
+                self.print_state(self.get_state(j))
+            else:
+                print("Step ", count-1)
+                self.print_state(self.get_state(j))
+            count += 1
+
+    def up(self, state):
+        pos_zero = np.argmin(state)
+        if pos_zero < 6:
+            state[pos_zero] = state[pos_zero + 3]
+            state[pos_zero + 3] = 0
+        else:
+            pass
+        return state[:]
+
+    def down(self, state):
+        pos_zero = np.argmin(state)
+        if pos_zero > 2:
+            state[pos_zero] = state[pos_zero - 3]
+            state[pos_zero - 3] = 0
+        else:
+            pass
+        return state[:]
+
+    def right(self, state):
+        pos_zero = np.argmin(state)
+        if pos_zero not in [0, 3, 6]:
+            state[pos_zero] = state[pos_zero - 1]
+            state[pos_zero - 1] = 0
+        else:
+            pass
+        return state[:]
+
+    def left(self, state):
+        pos_zero = np.argmin(state)
+        if pos_zero not in [2, 5, 8]:
+            state[pos_zero] = state[pos_zero + 1]
+            state[pos_zero + 1] = 0
+        else:
+            pass
+        return state[:]
+
+    def get_possible_states(self, state):
+        possible_states = [self.up(state[:]), self.down(state[:]), self.right(state[:]), self.left(state[:])]
+        possible_unique_states = []
+        for i in possible_states:
+            if i not in possible_unique_states and i != state:
+                possible_unique_states.append(i)
+        return possible_unique_states[:]
+
+    def find_by_a_star(self):
+        self.current_state = self.initial_state[:]
+        self.add_state_to_list(self.get_tag(self.initial_state), 0, self.compute_h(self.initial_state), 0, 0)
+        self.counter = 0
+        while self.current_state != self.goal_state and self.counter < 300000:
+            self.mark_as_explored(self.current_state)
+            self.reachable_states = self.get_possible_states(self.current_state)
+
+            for state in self.reachable_states:
+                tag = self.get_tag(state)
+                g = self.table_of_states[self.get_tag(self.current_state)][0] + 1
+                if tag not in self.table_of_states:
+                    self.add_state_to_list(tag, g, self.compute_h(state), self.get_tag(self.current_state), 0)
+                elif self.table_of_states[tag][0] > g:
+                    self.table_of_states[tag][0] = g
+                    self.table_of_states[tag][2] = g + self.table_of_states[tag][1]
+                    self.table_of_states[tag][3] = self.get_tag(self.current_state)
+                    self.table_of_states[tag][-1] = 0
+
+            self.current_state = self.get_state(self.find_state_minimum_cost())
+            self.counter += 1
+
+        print("\nTotal steps taken = ", self.counter)
+        self.print_sequence(self.current_state)
+
+
+
 if __name__ == "__main__":
-	print "Welcome to the awesome %d-puzzle solver." % PUZZLE_TYPE
-	mat = []
- 
-	print "Enter elements for %d Puzzle." % PUZZLE_TYPE
-	print "NOTE: Use \"x\" for blank.\n"
-	for i in xrange(MAT_SIZE):
-		print "Enter elements for row %d" % (i + 1)
-		mat.extend([-1 if x == "x" else int(x) for x in raw_input().split()])
- 
-	problem = Problem(mat)
-	print "Initial State",
-	problem.print_current_board()
-	print "Goal State",
-	print_board(problem.get_goal_state())
-	print "\n\n"
-	print "*"*50
- 
-	general_search(problem, uniform_cost_search)"""
+    puzzle = Puzzle8('052183476', '123456780')
+    puzzle.find_by_a_star()"""
+

@@ -382,6 +382,7 @@ class eight_puzzle_proble():
 
     def DFS(self,state):
         current_location=self.find_location_of_x(state)
+        print(current_location)
 
         visited={}
         stack=[current_location]
@@ -398,7 +399,7 @@ class eight_puzzle_proble():
                 self.print_state(state)
                 return
 
-            self.print_state(state)
+            #self.print_state(state)
             count+=1
             
             if(not visited.get(state_str,False)):

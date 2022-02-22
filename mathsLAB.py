@@ -348,3 +348,164 @@ y = r * np.cos(theta)
 ax.plot(x, y, z, label='parametric curve')
 ax.legend()
 plt.show()"""
+
+
+#lab 5
+
+# code 1 (contour for z=x^2+y^2))
+"""import matplotlib.pyplot as plt
+import numpy as np
+x = np.arange(-10, 10, 0.2)
+y = np.arange(-10, 10, 0.2)
+[X,Y] = np.meshgrid(x,y)
+print([X,Y])
+fig, ax = plt.subplots(1, 1)
+Z = X ** 2 + Y ** 2
+ax.contour(X, Y, Z)
+ax.set_title('Contour Plot')
+ax.set_xlabel('x')
+ax.set_ylabel('y')
+plt.show()"""
+
+# code 2 (contour for z=sin(xy))
+"""import matplotlib.pyplot as plt
+import numpy as np
+x = np.arange(-10, 10, 0.2)
+y = np.arange(-10, 10, 0.2)
+[X,Y] = np.meshgrid(x,y)
+print([X,Y])
+fig, ax = plt.subplots(1, 1)
+Z = np.sin(X*Y)
+ax.contour(X, Y, Z, cmap='RdGy')
+ax.set_title('Contour Plot')
+ax.set_xlabel('x')
+ax.set_ylabel('y')
+plt.show()"""
+
+# code 3 (contourf z=sin(xy))
+"""import matplotlib.pyplot as plt
+import numpy as np
+x = np.arange(-10, 10, 0.2)
+y = np.arange(-10, 10, 0.2)
+[X,Y] = np.meshgrid(x,y)
+print([X,Y])
+fig, ax = plt.subplots(1, 1)
+Z = np.sin(X*Y)
+ax.contourf(X, Y, Z, 20)
+ax.set_title('Contour Plot')
+ax.set_xlabel('x')
+ax.set_ylabel('y')
+plt.show()"""
+
+# code 4 (contourf z=sin(xy) usimg colorbar() )
+"""import matplotlib.pyplot as plt
+import numpy as np
+x = np.arange(-10, 10, 0.2)
+y = np.arange(-10, 10, 0.2)
+[X,Y] = np.meshgrid(x,y)
+print([X,Y])
+fig, ax = plt.subplots(1, 1)
+Z = np.sin(X*Y)
+ax.contourf(X, Y, Z, 20)
+ax.set_title('Contour Plot')
+ax.set_xlabel('x')
+ax.set_ylabel('y')
+plt.show()
+plt.imshow(Z,extent=[0,5,0,5],origin='lower')
+plt.colorbar()
+plt.axis(aspect='image')"""
+
+#code 5 (plotting 6 contour graph using subplots(2,3) )
+"""import matplotlib.pyplot as plt
+import numpy as np
+x = np.arange(-10, 10, 0.2)
+y = np.arange(-10, 10, 0.2)
+[X,Y] = np.meshgrid(x,y)
+
+Z1 = np.sin(X*Y)
+Z2 = np.sin(X-Y)
+Z3 = (1 - X**2)*(1 - Y**2)
+Z4 = np.exp(X) * np.cos(Y)
+Z5 = np.sin(X) - np.sin(Y)
+Z6 = (X - Y)/(1 + X**2 + Y**2)
+
+fig, axs = plt.subplots(2, 3)
+pc = axs[0, 0].contour(X, Y, Z1)
+axs[0, 0].set_title('sin(xy)')
+pc = axs[0, 1].contour(X, Y, Z2)
+axs[0, 1].set_title('sin(x-y)')
+pc = axs[0, 2].contour(X, Y, Z3)
+axs[0, 2].set_title('(1 - x^2)(1-y^2')
+pc = axs[1, 0].contour(X, Y, Z4)
+axs[1, 0].set_title('e^x cos(y)')
+pc = axs[1, 1].contour(X, Y, Z5)
+axs[1, 1].set_title('sin(x) - sin(y)')
+pc = axs[1, 2].contour(X, Y, Z6)
+axs[1, 2].set_title('(x-y)/(1 + x^2 + y^2)')
+plt.show()"""
+
+# code 6 (2d vector field for F=x^2 i +y^3 j)
+"""import numpy as np
+import matplotlib.pyplot as plt
+x,y = np.meshgrid(np.linspace(-5,5,10),np.linspace(-5,5,10))
+u = x**2
+v = pow(y,3)
+plt.quiver(x,y,u,v)
+plt.show()"""
+
+# code 7 (2d vector field for F=)
+
+# code 8 (3d vector field)
+"""from mpl_toolkits.mplot3d import axes3d
+import matplotlib.pyplot as plt
+import numpy as np
+fig = plt.figure()
+ax = fig.gca(projection='3d')
+x, y, z = np.meshgrid(np.arange(-1, 1, 0.2),np.arange(-1, 1, 0.2),np.arange(-1, 1, 0.8))
+u=x**x
+v=y**y
+w=z**z
+plt.quiver(x, y, z, u, v, w, length=0.4, color = 'black')
+plt.show()"""
+
+# code 9 (vistualizing the discreate function)
+"""import matplotlib.pyplot as plt
+import numpy as np
+x = np.linspace(0.1, 2 * np.pi,84)
+y = np.exp(np.cos(x))
+plt.stem(x, y)
+plt.show()"""
+
+# code 10
+"""import matplotlib.pyplot as plt
+import numpy as np
+x = np.linspace(0.1, 2 * np.pi, 41)
+y = np.exp(np.cos(x))
+markerline, stemlines, baseline = plt.stem(x, y, linefmt='grey', markerfmt='D', bottom=1.1)
+markerline.set_markerfacecolor('none')
+plt.show()"""
+
+# code 11 (pie chart)
+"""from matplotlib import pyplot as plt
+import numpy as np
+colors = ( "orange", "blue")
+Earth = ['Land ',  ' Water']
+data = [29.2, 70.8]
+fig=plt.figure(figsize=(10, 7))
+plt.pie(data, labels = Earth, colors = colors)
+plt.title('Earth')
+plt.show()"""
+
+# code 12 (draw the sample pie given)
+
+# code 13 (bar graph)
+"""import numpy as np
+import matplotlib.pyplot as plt
+fig = plt.figure(figsize = (6, 4))
+langs = ['C++', 'Java', 'Python']
+students = [50,45,85]
+plt.bar(langs,students,color = ['r','g','b'], width = 0.3)
+plt.xlabel("Courses offered")
+plt.ylabel("No. of students enrolled")
+plt.title('Bar plot')
+plt.show()"""

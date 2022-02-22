@@ -151,7 +151,7 @@ print()"""
 
     def DFS(self, state):
         current_location=self.find_location_of_space(state)
-        print(current_location)
+        #print(current_location)
 
         visited_DFS={}
         stack_DFS=[current_location]
@@ -167,9 +167,10 @@ print()"""
                 print(count)
                 print("Goal state reached: ")
                 self.print_the_matrix(state)
+                #print(visited_DFS)
                 return
 
-            self.print_the_matrix(state)
+            #self.print_the_matrix(state)
             count+=1
 
             if(not visited_DFS.get(state_str, False)):
@@ -196,18 +197,20 @@ print()"""
 
             current_location=self.find_location_of_space(state)
             visited_DFS[state_str]=True
+        
 
 
 g=eight_puzzle_probolem()
-initial_state=[[-1,5,2],[1,8,3],[4,7,6]]
+initial_state=[[1,2,3],[8,-1,4],[7,6,5]]
 g.DFS(initial_state)"""
 
 
 
 
 # 8 puzzle problem using dfs
+"""from queue import Queue
 
-"""class eight_puzzle_probolem_using_BFS():
+class eight_puzzle_probolem_using_BFS():
 
     def __init__(self):
         self.goal_state = [[1, 2, 3], [4, 5, 6], [7, 8, -1]]
@@ -248,13 +251,17 @@ g.DFS(initial_state)"""
 
         visited_BFS={}
         # print(visited_BFS)
-        queue_BFS=[current_location]
+
+        # queue_BFS=[current_location]
+
+        queue_BFS=Queue()
+        queue_BFS.put(current_location)
         # print(queue_BFS.pop(0))
         count=0
         # print(count)
 
         while(queue_BFS):
-            new_location=queue_BFS.pop(0)
+            new_location=queue_BFS.get()
             state=self.create_a_new_state_using_current_and_new_location(state, current_location, new_location)
 
             state_str=str(state)
@@ -268,24 +275,24 @@ g.DFS(initial_state)"""
             self.print_the_matrix(state)
             count+=1
 
-            if(not visited_BFS.get(state_str, False)):
+            if(not visited_BFS.get(state_str)):
                 x,y=new_location
 
                 #check if we can go up
                 if(self.check_if_location_is_inside_the_matrix_or_not((x-1,y))):
-                    queue_BFS.append((x-1,y))
+                    queue_BFS.put((x-1,y))
 
                 #check if we can go down
                 if(self.check_if_location_is_inside_the_matrix_or_not((x+1,y))):
-                    queue_BFS.append((x+1,y))
+                    queue_BFS.put((x+1,y))
 
                 #check if we can go right
                 if(self.check_if_location_is_inside_the_matrix_or_not((x,y+1))):
-                    queue_BFS.append((x,y+1))
+                    queue_BFS.put((x,y+1))
 
                 #check if we can go left
                 if(self.check_if_location_is_inside_the_matrix_or_not((x,y-1))):
-                    queue_BFS.append((x,y-1))
+                    queue_BFS.put((x,y-1))
 
             else:
                 state=self.create_a_new_state_using_current_and_new_location(state, new_location, current_location)
@@ -295,13 +302,13 @@ g.DFS(initial_state)"""
 
 
 g=eight_puzzle_probolem_using_BFS()
-initial_state=[[-1,5,2],[1,8,3],[4,7,6]]
+initial_state=[[1, 2, 3], [4, 5, 6], [7, -1, 8]]
 g.BFS(initial_state)"""
 
 
 
 
-import numpy as np
+"""import numpy as np
 import time
 class Node():
     def __init__(self,state,parent,action,depth,step_cost,path_cost,heuristic_cost):
@@ -524,4 +531,4 @@ print("======================")
 
 root_node = Node(state=initial_state,parent=None,action=None,depth=0,step_cost=0,path_cost=0,heuristic_cost=0)
 # search level by level with queue
-root_node.breadth_first_search(goal_state)
+root_node.breadth_first_search(goal_state)"""

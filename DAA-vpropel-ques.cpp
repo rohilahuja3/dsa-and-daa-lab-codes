@@ -507,7 +507,7 @@
     */
 
 
-    #include <iostream>
+    /*#include <iostream>
     #include <vector>
     #include <climits>
     using namespace std;
@@ -571,7 +571,7 @@
         }
 
         cout<<end-start+1<<endl;
-    }
+    }*/
 
 
 
@@ -787,3 +787,10 @@
         cout << ans << endl;
         return 0;
     }*/
+
+
+
+
+//5) lab 5
+
+//  matrix multiplication using brute force, strassen method and divide and conquer (DAAlab.cpp file)

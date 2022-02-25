@@ -737,7 +737,7 @@
 
     //8.c) n queen problem
 
-    #include <bits/stdc++.h>
+    /*#include <bits/stdc++.h>
     #include <chrono>
     using namespace std;
     using namespace std::chrono;
@@ -842,7 +842,7 @@
         pos_of_n_queen(chess,0,n-1,sol);//passing row not colums becoz we have to try all colums, and final state is n-1 final row
 
         return 0;
-    }
+    }*/
 
     /*#include <bits/stdc++.h>
     #include <chrono>
@@ -1204,7 +1204,7 @@ int main()
     int profit;
 
     vector<pair<int,int>> v(n);
-    vector<vector<int>> dp(capacity+1,vector<int>(capacity+1,-1));
+    vector<vector<int>> dp(n+1,vector<int>(capacity+1,-1));
 
     for(int i=0;i<n;i++){
         cin>>v[i].first;

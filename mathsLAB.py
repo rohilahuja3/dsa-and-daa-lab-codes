@@ -509,3 +509,31 @@ plt.xlabel("Courses offered")
 plt.ylabel("No. of students enrolled")
 plt.title('Bar plot')
 plt.show()"""
+
+
+
+
+# lab 6
+
+# code 1 (singular valuse decomposiotion)
+"""import numpy as np
+from scipy.linalg import svd
+A=np.array([[1,1,0],[0,0,1]])
+print(A,end="\n\n")
+U,S,VT = svd(A)
+print(U,end="\n\n")
+print(S,end="\n\n")
+print(VT,end="\n\n")"""
+
+# code 2 (psudeo inverse)
+"""import numpy as np
+from scipy.linalg import svd
+A = np.array([[1, 1,0], [0, 0, 1]])
+# A=np.array([[0,0],[0,3],[-2,0]])
+U, D, V = np.linalg.svd(A)
+D_plus = np.zeros((A.shape[0], A.shape[1])).T
+D_plus[:D.shape[0], :D.shape[0]] = np.linalg.inv(np.diag(D))
+A_plus = V.T.dot(D_plus).dot(U.T)
+A_plus
+print(A_plus)"""
+

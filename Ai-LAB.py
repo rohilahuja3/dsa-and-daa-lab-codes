@@ -611,7 +611,7 @@ if flag==False:
 # lab 4
 
   # a* algo
-"""class Node:
+class Node:
 
   def __init__(self,data,level,fval):
       self.data = data
@@ -713,7 +713,7 @@ class Puzzle:
 
 
 puz = Puzzle(3)
-puz.process()"""
+puz.process()
 
 """import numpy as np
 import sys

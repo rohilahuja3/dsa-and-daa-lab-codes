@@ -794,3 +794,140 @@
 //5) lab 5
 
 //  matrix multiplication using brute force, strassen method and divide and conquer (DAAlab.cpp file)
+
+
+
+
+//6) lab 6
+
+// Q1) Write a program to find the length of longest common subsequence between the two given string.
+
+/*#include <iostream>
+#include <vector>
+#include <algorithm>
+using namespace std;
+
+void print_dp(vector<vector<int>> &dp)
+{
+    for(auto i:dp){
+        for(auto j:i){
+            cout<<j<<" ";
+        }
+        cout<<endl;
+    }
+}
+
+int top_down(string s1,int n1,string s2,int n2,int i,int j,vector<vector<int>> &dp)
+{
+    //base case if i and j is >= size of string
+    if(i>=n1 || j>=n2){
+        return 0;
+    }
+
+    if(dp[i][j]!=-1)
+    {
+        return dp[i][j];
+    }
+
+    //recursive case
+    if(s1[i]==s2[j]) // whenm s1[i]==s2[j] then we have to increment i and j
+    {
+        return dp[i][j]=1+top_down(s1,n1,s2,n2,i+1,j+1,dp);
+    }
+
+    else
+    {
+        return dp[i][j]=max(top_down(s1,n1,s2,n2,i,j+1,dp),top_down(s1,n1,s2,n2,i+1,j,dp));
+    }
+}
+
+int main()
+{
+    string s1,s2;
+    cin>>s1;
+    cin>>s2;
+    
+    vector<vector<int>> dp(s1.size(), vector<int> (s2.size(),-1));
+
+    int i=0;
+    int j=0;
+
+    cout<<top_down(s1,s1.size(),s2,s2.size(),i,j,dp)<<endl;//i==0 and j==0
+    //print_dp(dp);
+}*/
+
+
+// Q2) Write a program to find the longest common subsequence between the two given string. Also, display the string length.
+
+    /*Input format:
+
+    Enter 1st string
+
+    Enter 2nd string
+
+    Output format:
+
+    String length
+
+    Common substring*/
+
+/*#include <iostream>
+#include <vector>
+#include <algorithm>
+#include <cstring>
+using namespace std;
+
+void print_dp(vector<vector<int>> &dp)
+{
+    for(auto i:dp){
+        for(auto j:i){
+            cout<<j<<" ";
+        }
+        cout<<endl;
+    }
+}
+
+int bottom_up(string s1,int n1,string s2,int n2)
+{//s2 is in rows and s1 is in columns
+    // s1= bd n1=2
+    // s2=abcd n2=4
+    //s1 is in rows and s2 is in columns
+    vector<vector<int>> dp(n2+1, vector<int> (n1+1,-1));
+
+    for(int i=0;i<=max(n1,n2);i++){
+        dp[0][i]=0;
+        dp[i][0]=0;
+    }
+
+    for(int i=1;i<=n2;i++)//initially i is pointing a
+    {
+        for(int j=1;j<=n1;j++)//comparing pos i that is a with complete s2 string and j is initially pointnig at b
+        {
+            if(s2[i-1]==s1[j-1])
+            {
+                dp[i][j]=1+dp[i-1][j-1];
+            }
+
+            else
+            {
+                dp[i][j]=max(dp[i-1][j],dp[i][j-1]);
+            }
+
+        }
+    }
+
+    print_dp(dp);
+    return dp[n2][n1];
+}
+
+int main()
+{
+    string s1,s2;
+    cout<<"enter string 1: first sting always should be the small one"<<endl;
+    cin>>s1;
+    cout<<"enter string 2"<<endl;
+    cin>>s2;
+    cout<<s1<<s2<<endl;
+
+    cout<<bottom_up(s1,s1.size(),s2,s2.size())<<endl;
+}*/

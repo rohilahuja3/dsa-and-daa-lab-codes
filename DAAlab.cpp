@@ -913,6 +913,6 @@ int main()
 
     vector<vector<int>> a = {{1, 2, 3,4}, {4, 5, 6,8},{5,6,7,8},{9,10,11,12}};
     vector<vector<int>> b = {{1, 2, 3, 4}, {4, 5, 6, 7},{5,6,7,8},{9,10,11,12}};
-    Strassen_algorithm(a, b, 2, 3, 3, 4);
+    Strassen_algorithm(a, b, 4, 4, 4, 4);
     return 0;
 }*/

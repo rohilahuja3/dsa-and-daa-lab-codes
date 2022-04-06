@@ -1875,7 +1875,7 @@ int main()
 //14) grapf implementaion
 
 //14 a) graph with matrix
-/*#include <stdio.h>
+#include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
 #define inf 10000
@@ -2044,8 +2044,8 @@ void disp_min_dist(int nodes)
 int main()
 {
     #ifndef ONLINE_JUDGE
-    freopen("input.txt", "r", stdin);
-    freopen("output.txt", "w", stdout);
+    freopen("inputDAA.txt", "r", stdin);
+    freopen("outputDAA.txt", "w", stdout);
     #endif
     
     int nodes,edges;
@@ -2082,7 +2082,7 @@ int main()
     distance_dijistra[root_dijistra]=0;
     dijistra_algo(root_dijistra,matrix,nodes);
     disp_min_dist(nodes);
-}*/
+}
 
 
 

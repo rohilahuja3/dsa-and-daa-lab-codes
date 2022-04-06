@@ -7,6 +7,8 @@
 # a,c
 # a,d
 # b,e
+import heapq
+import queue
 
 class graph():
 
@@ -25,18 +27,19 @@ class graph():
             #for integer elments in graph
             #u=int(u)
             #v=int(v)
+            w=int(w)
 
             if u in self.graph_using_adj_list.keys():
-                self.graph_using_adj_list[u].append((v, w))
+                self.graph_using_adj_list[u].append((w, v))
             else:
-                self.graph_using_adj_list[u] = [(v, w)];
+                self.graph_using_adj_list[u] = [(w, v)];
 
             if(self.type_uni_or_bi == True):
 
                 if v in self.graph_using_adj_list.keys():
-                    self.graph_using_adj_list[v].append((u, w))
+                    self.graph_using_adj_list[v].append((w, u))
                 else:
-                    self.graph_using_adj_list[v] = [(u, w)];
+                    self.graph_using_adj_list[v] = [(w, u)];
 
 
     def print_graph(self):
@@ -59,7 +62,8 @@ class graph():
             return True
 
         for i in range(0, len(self.graph_using_adj_list[curremt_state_DFS])):
-            for neigh_DFS in self.graph_using_adj_list[curremt_state_DFS][i][0]:
+            for neigh_DFS in self.graph_using_adj_list[curremt_state_DFS][i][1]:
+                # print("\t",self.graph_using_adj_list[curremt_state_DFS][i][1])
                 if(self._dfs_helper(neigh_DFS, visited_DFS, goal_state_DFS)):
                     return True
 
@@ -89,14 +93,15 @@ class graph():
         visited_BFS[start_state_BFS]=True
         
         while queue_BFS:
-            current_state_BFS = queue_BFS.pop(0)[0]
+            # current_state_BFS = queue_BFS.pop(0)[0]
+            current_state_BFS = queue_BFS.pop(0)
             print(current_state_BFS)
 
             if(current_state_BFS == goal_state_BFS):
                 return
 
             for i in range(0, len(self.graph_using_adj_list[current_state_BFS])):
-                for neigh in self.graph_using_adj_list[current_state_BFS][i][0]:
+                for neigh in self.graph_using_adj_list[current_state_BFS][i][1]:
 
                     if(not visited_BFS[neigh]):
                         queue_BFS.append(neigh)
@@ -118,7 +123,7 @@ class graph():
 
 
         for i in range(0, len(self.graph_using_adj_list[curremt_state_DLS])):
-            for neigh_DLS in self.graph_using_adj_list[curremt_state_DLS][i][0]:
+            for neigh_DLS in self.graph_using_adj_list[curremt_state_DLS][i][1]:
                 if(self._dls_helper(neigh_DLS, visited_DLS, goal_state_DLS, stack_DLS, level+1, limit)):
                     return True
 
@@ -132,34 +137,109 @@ class graph():
         for key in self.graph_using_adj_list.keys():
             visited_DLS[key]=False
 
-        print("DFS START...")
+        print("DLS START...")
         self._dls_helper(start_state_DLS, visited_DLS, goal_state_DLS, stack_DLS, level, limit)
-        print("DFS END...")
+        print("DLS END...")
+
+    
+    # def dijkstra(self, start_node_dijistra):
+    #     # The only criterium of adding a node to queue is if its distance has changed at the current step.
+    #     minDistances = {}
+    #     queue = [start_node_dijistra]
+    #     minDistances[start_node_dijistra] = 0
+    #     predecessor = {}
+
+    #     for key in self.graph_using_adj_list.keys():
+    #         minDistances[key] = float("inf")
+
+
+    #     while queue:
+    #         currentNode = queue.pop(0)
+
+    #         # for i in range(0, len(self.graph_using_adj_list[currentNode])):
+    #         #     for neighbor in self.graph_using_adj_list[currentNode][i][1]:
+    #         #         print(self.graph_using_adj_list[currentNode][neighbor])
+
+    #         for neighbor in self.graph_using_adj_list[currentNode]:
+    #             # get potential newDist from start to neighbor
+    #             newDist = minDistances[currentNode] + self.graph_using_adj_list[currentNode][neighbor]
+                
+    #             # if the newDist is shorter to reach neighbor updated to newDist
+    #             if newDist < minDistances[neighbor]:
+    #                 minDistances[neighbor] = min(newDist, minDistances[neighbor])
+    #                 queue.append(neighbor)
+    #                 predecessor[neighbor] = currentNode
+
+    #     return minDistances, predecessor
+
+    # shortest_path_cost, predecessor = dijkstra(directed_weighted_graph, 'a')
+    # print("shortest_path_cost from node a to every nodes in graph:", shortest_path_cost, "\npredecessor dictionary:", predecessor)
+
 
 
     # def UCS(self, start_state_UCS, goal_state_UCS):
+    #     visited_UCS={}
+    #     queue_UCS = []
+    #     li = [(0,start_state_UCS)]
+    #     heapq.heapify(li)
+    #     print (list(li))
+    #     # print(goal_state_UCS)
+
+
+    def ucs(G, v):
+        visited = set()                  # set of visited nodes
+        visited.add(v)                   # mark the starting vertex as visited
+        q = queue.PriorityQueue()        # we store vertices in the (priority) queue as tuples with cumulative cost
+        q.put((0, v))                    # add the starting node, this has zero *cumulative* cost   
+        goal_node = None                 # this will be set as the goal node if one is found
+        parents = {v:None}               # this dictionary contains the parent of each node, necessary for path construction
+
+        while not q.empty():             # while the queue is nonempty
+            dequeued_item = q.get()        
+            current_node = dequeued_item[1]             # get node at top of queue
+            current_node_priority = dequeued_item[0]    # get the cumulative priority for later
+
+            if current_node.is_goal:                    # if the current node is the goal
+                path_to_goal = [current_node]           # the path to the goal ends with the current node (obviously)
+                prev_node = current_node                # set the previous node to be the current node (this will changed with each iteration)
+
+                while prev_node != v:                   # go back up the path using parents, and add to path
+                    parent = parents[prev_node]
+                    path_to_goal.append(parent)   
+                    prev_node = parent
+
+                path_to_goal.reverse()                  # reverse the path
+                return path_to_goal                     # return it
+
+            else:
+                for edge in current_node.out_edges:     # otherwise, for each adjacent node
+                    child = edge.to()                   # (avoid calling .to() in future)
+
+                    if child not in visited:            # if it is not visited
+                        visited.add(child)              # mark it as visited
+                        parents[child] = current_node   # set the current node as the parent of child
+                        q.put((current_node_priority + edge.weight, child)) # and enqueue it with *cumulative* priority
         
 
 
 g=graph()
 
-# print(g.graph_using_adj_list['a'][1][1])
+g.print_graph()
+print()
 
-#g.print_graph()
+# g.DFS("a","g")
 # print()
 
-g.DFS("a","g")
-print()
+# g.BFS("a","g")
+# print("BFS END...\n")
 
-g.BFS("a","g")
-print("BFS END...")
-print()
+# limit=int(input("maximum level till u can go: \n"))
+# level=0 #the starting level
+# g.DLS("a", "g", level, limit)
 
-limit=int(input("maximum level till u can go: "))
-level=0 #the starting level
-g.DLS("a", "g", level, limit)
+g.ucs("a", "g")
 
-# g.ucs("a", "g")
+# g.dijkstra("a")
 
 
 # 8 puzzle problem using dfs
@@ -219,7 +299,7 @@ g.DLS("a", "g", level, limit)
                 #print(visited_DFS)
                 return
 
-            #self.print_the_matrix(state)
+            self.print_the_matrix(state)
             count+=1
 
             if(not visited_DFS.get(state_str, False)):

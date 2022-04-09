@@ -1493,7 +1493,8 @@ int main()
 
     // 14 a) naive string matching
 
-    /*#include <bits/stdc++.h>
+    /*#include<iostream>
+    #include<cstring>
     using namespace std;
 
     void search(string pattern, string text)
@@ -1515,39 +1516,315 @@ int main()
 
     int main()
     {
-        string text = "ABAACAADAABAAABAA";
-        string pattern = "AABA";
-        search(pattern, text);
+        // string text = "accabbcde";
+        // string pattern = "cde";
+        string text;
+        cin>>text;
+        string pat;
+        cin>>pat;
+        search(pat, text);
         return 0;
     }*/
-
 
 
 
     // 14 a) kmp string matching
 
-    /*#include <bits/stdc++.h>
+// using char array
+    // #include<iostream>
+    // #include<cstring>
+    // using namespace std;
+
+    // void pi_fun(char* pat, int M, int* pi)
+    // {
+    //     int len = 0;
+    //     pi[0] = 0;
+    //     int i = 1;
+    //     while (i < M) {
+    //         if (pat[i] == pat[len]) {
+    //             len++;
+    //             pi[i] = len;
+    //             i++;
+    //         }
+    //         else
+    //         {
+    //             if (len != 0) {
+    //                 len = pi[len - 1];
+    //             }
+    //             else
+    //             {
+    //                 pi[i] = 0;
+    //                 i++;
+    //             }
+    //         }
+    //     }
+    // }
+
+    // void KMP(char* pat, char* txt)
+    // {
+    //     int M = strlen(pat);
+    //     int N = strlen(txt);
+
+    //     int pi[M];
+
+    //     pi_fun(pat, M, pi);
+
+    //     int i = 0;
+    //     int j = 0;
+    //     while (i < N) {
+    //         if (pat[j] == txt[i]) {
+    //             j++;
+    //             i++;
+    //         }
+
+    //         if (j == M) {
+    //             printf("Found pattern at index %d ", i - j);
+    //             j = pi[j - 1];
+    //         }
+
+    //         else if (i < N && pat[j] != txt[i]) {
+    //             if (j != 0)
+    //                 j = pi[j - 1];
+    //             else
+    //                 i = i + 1;
+    //         }
+    //     }
+    // }
+
+    // int main()
+    // {
+    //     char txt[100],pat[100];
+    //     cin>>txt;
+    //     cin>>pat;
+        
+    //     KMP(pat, txt);
+    // }
+
+// using string
+    /*#include<iostream>
+    #include<cstring>
     using namespace std;
 
-    
-    void prefix_function(string s) {
-        int n = (int)s.length();
-        vector<int> pi(n);
-        for (int i = 0; i < n; i++)
-            for (int k = 0; k <= i; k++)
-                if (s.substr(0, k) == s.substr(i-k+1, k))
-                    pi[i] = k;
-        
-        for(auto ele:pi)
-            cout<<ele<<" ";
+    void pi_fun(string pat, int M, int pi[])
+    {
+        int len = 0;
+        pi[len] = 0;
+        int i = 1;
+        while (i < M) {
+            if (pat[i] == pat[len]) {
+                len++;
+                pi[i] = len;
+                i++;
+            }
+            else
+            {
+                if (len != 0) {
+                    len = pi[len - 1];
+                }
+                else
+                {
+                    pi[i] = 0;
+                    i++;
+                }
+            }
+        }
+
+        for(int i=0;i<M;i++){
+            cout<<pi[i]<<" ";
+        }
+        cout<<endl;
+    }
+
+    void KMP(string pat, string txt)
+    {
+        int M = pat.length();
+        int N = txt.length();
+
+        int pi[M];
+
+        pi_fun(pat, M, pi);
+
+        int i = 0;
+        int j = 0;
+        while (i < N) {
+            if (pat[j] == txt[i]) {
+                j++;
+                i++;
+            }
+
+            if (j == M) {
+                printf("Found pattern at index %d ", i - j);
+                j = pi[j - 1];
+            }
+
+            else if (i < N && pat[j] != txt[i]) {
+                if (j != 0)
+                    j = pi[j - 1];
+                else
+                    i = i + 1;
+            }
+        }
     }
 
     int main()
     {
-        // char txt[] = "ABABDABACDABABCABABAABAAAB";
-        string pat = "AABAAAB";
-        // prefix_function(pat);
-
-        cout<<43%11<<endl;
-        return 0;
+        // char txt[100],pat[100];
+        string txt;
+        string pat;
+        // cin>>txt;
+        // cin>>pat;
+        txt = "accabbcde";
+        pat = "cde";
+        
+        KMP(pat, txt);
     }*/
+
+
+
+    // 14 c) rabin karp string matching
+
+    // #include<iostream>
+    // #include<cstring>
+    // using namespace std;
+    // #define d 256
+
+    // void search(string pat, string txt, int q)
+    // {
+    //     int M = pat.length();
+    //     int N = txt.length();
+    //     int j;
+    //     int p=0;
+    //     int t=0;
+    //     int h=1;
+
+    //     for(int i=0;i<M-1;i++)
+    //         h = (h*d)%q;
+            
+    //     for(int i=0; i<=N-M;i++)
+    //     {
+    //         p= (d*p+pat[i])%q;
+    //         t= (d*t+txt[i])%q;
+    //     }
+        
+    //     for(int i=0; i<=N-M; i++)
+    //     {
+    //         if(p==t)
+    //         {
+    //             bool flag=true;
+    //             for(j=0;j<M;j++)
+    //             {
+    //                 if(txt[i+j]!=pat[j])
+    //                 {
+    //                     flag=false;
+    //                     break;
+    //                 }
+    //             }
+                
+    //             if(j==M)
+    //                 cout<<"Present";
+    //         }
+            
+    //         if(i<N-M)
+    //         {
+    //             t=(d*(t-txt[i]*h)+txt[i+M])%q;
+    //             if(t<0)
+    //                 t=(t+q);
+    //         }
+    //     }
+    // }
+
+    // int main()
+    // {
+    //     int n;
+    //     cin>>n;
+    //     char txt[100],pat[100];
+        
+    //     for(int i=0;i<n;i++){
+    //     cin>>txt;
+    //     cin>>pat;
+    //     int q=101;
+        
+    //     search(pat, txt, q);
+    //     }
+    // }
+
+
+    /* Following program is a C++ implementation of Rabin Karp
+    Algorithm given in the CLRS book */
+    #include <bits/stdc++.h>
+    using namespace std;
+
+    #define d 256
+    int search(string pat, string txt, int q)
+    {
+        int M = pat.length();
+        int N = txt.length();
+        int i, j;
+        int p = 0;
+        int t = 0;
+        int h = 1;
+
+        for (i = 0; i < M - 1; i++)
+            h = (h * d) % q;
+
+        for (i = 0; i < M; i++)
+        {
+            p = (d * p + pat[i]) % q;
+            t = (d * t + txt[i]) % q;
+        }
+
+        for (i = 0; i <= N - M; i++)
+        {
+
+            if ( p == t )
+            {
+                bool flag = true;
+                for (j = 0; j < M; j++)
+                {
+                    if (txt[i+j] != pat[j])
+                    {
+                    flag = false;
+                    break;
+                    }
+                    // if(flag)
+                    // cout<<i<<" ";
+                        
+                }
+            
+                if (j == M) {
+                    cout<<"Present"<<endl;
+                    return 0;
+                }
+            }
+
+            if ( i < N-M )
+            {
+                t = (d*(t - txt[i]*h) + txt[i+M])%q;
+
+                if (t < 0)
+                    t = (t + q);
+            }
+
+        }
+        cout<<"Not Present"<<endl;
+        return 0;
+    }
+
+    int main()
+    {
+        string txt;
+        // txt = "accabbcde";
+        string pat;
+        // pat = "cde";
+
+        int n;
+        cin>>n;
+        for(int i=0;i<n;i++){
+            cin>>txt;
+            cin>>pat;
+
+            int q = 101;
+            search(pat, txt, q);
+        }
+        return 0;
+    }

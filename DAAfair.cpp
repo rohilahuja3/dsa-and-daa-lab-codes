@@ -990,6 +990,99 @@
     }*/
 
 
+    /*#include<vector>
+    #include<iostream>
+    using namespace std;
+
+    void print(vector<vector<int>> &chess)
+    {
+        // for(auto ele:chess){
+        //     for(auto num:ele)
+        //         cout<<num<<" ";
+        //     cout<<endl;
+        // }
+        int n=chess.size();
+        for(int i=0;i<n;i++){
+            for(int j=0;j<n;j++)
+            {
+                cout<<chess[i][j];
+                if(j==n-1){
+                    cout<<endl;
+                }
+                else{
+                    cout<<" ";
+                }
+            }
+        }
+    }
+
+    bool is_safe(vector<vector<int>> &chess, int initial_row, int pos_of_j, int final_row_size_of_chess)
+    {
+        for(int k=0;k<=final_row_size_of_chess;k++){
+            if(chess[initial_row][k]==1 || chess[k][pos_of_j]==1)
+                return false;
+        }
+        
+        int r=initial_row;
+        int c=pos_of_j;
+        
+        while(r>=0 && c>=0)
+        {
+            if(chess[r][c]==1)
+                return false;
+            r--;
+            c--;
+        }
+        
+        r=initial_row;
+        c=pos_of_j;
+        
+        while(r>=0 && c<=final_row_size_of_chess)
+        {
+            if(chess[r][c]==1)
+                return false;
+            r--;
+            c++;
+        }
+        
+        return true;
+    }
+
+    bool pos_of_queen(vector<vector<int>> &chess, int initial_row, int final_row_size_of_chess)
+    {
+        if(initial_row>final_row_size_of_chess){
+            print(chess);
+            cout<<"\n";
+            return false;
+        }
+        
+        for(int j=0;j<=final_row_size_of_chess;j++)
+        {
+            if(is_safe(chess,initial_row,j,final_row_size_of_chess)){
+                
+                chess[initial_row][j]=1;
+                
+                bool check_for_next_row=pos_of_queen(chess,initial_row+1,final_row_size_of_chess);
+                if(check_for_next_row)
+                    return true;
+                
+                // back tracking
+                chess[initial_row][j]=0;
+            }
+        }
+        return false;
+    }
+
+    int main()
+    {
+        int n;
+        cin>>n;
+        
+        vector<vector<int>> chess(n,vector<int> (n,0));
+        pos_of_queen(chess,0,n-1);
+    }*/
+
+
 
 
 //9) subsequences 

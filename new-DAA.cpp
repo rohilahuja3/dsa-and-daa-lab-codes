@@ -557,7 +557,7 @@ int main()
 
 
 
-#include<bits/stdc++.h>
+/*#include<bits/stdc++.h>
 using namespace std;
 
 void print_dp(vector<vector<int>> &dp)
@@ -626,4 +626,131 @@ int main()
     print_dp(dp);
     
     return 0;
+}*/
+
+
+#include <bits/stdc++.h>
+#define inf 100
+using namespace std;
+
+void print(vector<vector<int>> &chess)
+{
+    for(auto ele : chess){
+        for(auto num : ele)
+            cout<<num<<" ";
+        cout<<endl;
+    }
+}
+
+bool is_safe(vector<vector<int>> &chess,int initial_row,int pos_of_j,int final_row_size_of_chess)
+{
+    //check if currnt cell is being attacked from row or column
+    for(int k=0;k<=final_row_size_of_chess;k++){
+        if(chess[initial_row][k]==1 || chess[k][pos_of_j]==1)
+            return false;
+    }
+
+    //check diagonals = first left upper diagonal
+    int r=initial_row;
+    int c=pos_of_j;
+
+    while(r>=0 && c>=0){
+        if(chess[r][c]==1)
+            return false;
+        r--;
+        c--;
+    }
+
+    //check diagonals = right upper diagonal
+
+    r=initial_row;
+    c=pos_of_j;
+
+    while(r>=0 && c<=final_row_size_of_chess){
+        if(chess[r][c]==1)
+            return false;
+        r--;
+        c++;
+    }
+
+    //if the pos is not attcaked therefore safe to put queen there
+    return true;
+}
+
+int mark_blocked_state(vector<vector<int>> &chess,int initial_row,int pos_of_j,int final_row_size_of_chess)
+{
+    //block that particular row and cloumn
+    for(int k=0;k<final_row_size_of_chess;k++){
+        chess[initial_row][k]=inf;
+        chess[k][initial_row]=inf;
+    }
+
+    //block right diagonal
+    int i=initial_row;
+    int j=pos_of_j;
+
+    while(i>=0 && j<final_row_size_of_chess){
+        for(int k=0;k<final_row_size_of_chess;k++){
+            chess[i][j]=inf;
+        }
+        i++;
+        j++;
+    }
+    
+    //block left diagonal
+    i=initial_row;
+    j=pos_of_j;
+
+    while(i>=0 && j<final_row_size_of_chess){
+        for(int k=0;k<final_row_size_of_chess;k++){
+            chess[i][j]=inf;
+        }
+        i++;
+        j--;
+    }
+
+    return is_safe(chess,initial_row,j,final_row_size_of_chess);
+}
+
+bool pos_of_queen(vector<vector<int>> &chess,int initial_row,int final_row_size_of_chess)
+{
+    //base condition
+
+    //there are no more rows left to traverse from and we need to print
+    if(initial_row>final_row_size_of_chess){
+        print(chess);
+        return false;
+    }
+
+    //recursive case
+
+    //we have to check for each pos in a row there for we need a for loop
+    for(int j=0;j<=final_row_size_of_chess;j++){
+
+        if(is_safe(chess,initial_row,j,final_row_size_of_chess)){
+
+            chess[initial_row][j]=1;
+
+            //checking for the rows after the initial passed row
+            bool check_for_next_rows_after_initial_row = pos_of_queen(chess,initial_row+1,final_row_size_of_chess);
+            if(check_for_next_rows_after_initial_row)
+                return true;
+
+            //back tracking
+            chess[initial_row][j]=0;
+        }
+    }
+
+    return false;//if no case works therefore no soln.
+}
+
+int main()
+{    
+    int n;
+    cout<<"input size of matrix: "<<endl;
+    cin>>n;
+
+    vector<vector<int>> chess(n,vector<int> (n,0));
+
+    pos_of_queen(chess,0,n-1);
 }

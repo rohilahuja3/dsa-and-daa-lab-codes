@@ -1431,7 +1431,7 @@ int bottom_up(vector<int> &dimesion_vector)
                 dp[i][j]=min(dp[i][j], dp[i][k]+dp[k+1][j]+dimesion_vector[i-1]*dimesion_vector[k]*dimesion_vector[j]);
             }
         }
-        
+
     }
 
     print_dp(dp);

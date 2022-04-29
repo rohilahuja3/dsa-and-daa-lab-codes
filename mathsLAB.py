@@ -256,7 +256,7 @@ plt.show()"""
 
 
 #code 5 (continue of code 5)
-"""import matplotlib.pyplot as plt
+import matplotlib.pyplot as plt
 import numpy as np
 x = np.linspace(0, 20, 100)
 y = 2*np.sin(x)
@@ -272,7 +272,7 @@ pc1 = axs[2].plot(x, y2, linewidth=2.0, color='r')
 axs[2].set_title('cos(2x)')
 co1 = axs[3].plot(x,y3, linewidth=2.0, color='g')
 axs[3].set_title('sin(2x)')
-plt.show()"""
+plt.show()
 
 #code 6 (print surface)
 """from mpl_toolkits import mplot3d

@@ -662,6 +662,7 @@
                 cout<<num<<" ";
             cout<<endl;
         }
+        cout<<endl;
     }
 
     bool find_path_for_mice(vector<vector<int>> &grid, int initial_i, int initial_j, int final_n, int final_m)
@@ -674,8 +675,9 @@
         //reached the goal state
         if(initial_i==final_n && initial_j==final_m){
             grid[final_n][final_m]=1;
+            cout<<"Final maze with path is : "<<endl;
             print(grid);
-            return true;
+            return false;
         }
 
         //condition for blocked state
@@ -727,7 +729,11 @@
                 cin>>grid[i][j];
         }
 
+        cout<<"Initial maze is: "<<endl;
         print(grid);
+        // cout<<"====2 : means the state is blocked===="<<endl;
+        // cout<<"====1 : means the state currently visited===="<<endl;
+        // cout<<"====0 : means the state is not visited yet or backtacked===="<<endl;
 
         find_path_for_mice(grid, 0, 0, n-1, m-1);//send the grid along with initial state and goal state
 
@@ -1386,7 +1392,7 @@ int main()
 
 //11 b) using bottom up approach
 
-/*#include <bits/stdc++.h>
+#include <bits/stdc++.h>
 using namespace std;
 
 void print_dp(vector<vector<int>> &dp)
@@ -1425,7 +1431,7 @@ int bottom_up(vector<int> &dimesion_vector)
                 dp[i][j]=min(dp[i][j], dp[i][k]+dp[k+1][j]+dimesion_vector[i-1]*dimesion_vector[k]*dimesion_vector[j]);
             }
         }
-
+        
     }
 
     print_dp(dp);
@@ -1442,7 +1448,7 @@ int main()
 
     vector<int> dimesion_vector={2,3,4,2,5};//a1=2,3  a2=3,4  a3=4,2  a4=2,5
     cout<<bottom_up(dimesion_vector)<<endl;
-}*/
+}
 
 
 
@@ -1586,38 +1592,38 @@ int main()
 
     // 14 a) naive string matching
 
-    /*#include<iostream>
-    #include<cstring>
-    using namespace std;
+    // #include<iostream>
+    // #include<cstring>
+    // using namespace std;
 
-    void search(string pattern, string text)
-    {
-        int M = pattern.length();
-        int N = text.length();
+    // void search(string pattern, string text)
+    // {
+    //     int M = pattern.length();
+    //     int N = text.length();
 
-        for (int i = 0; i <= N - M; i++) {
-            int j;
+    //     for (int i = 0; i <= N - M; i++) {
+    //         int j;
 
-            for (j = 0; j < M; j++)
-                if (text[i + j] != pattern[j])
-                    break;
+    //         for (j = 0; j < M; j++)
+    //             if (text[i + j] != pattern[j])
+    //                 break;
 
-            if (j == M)
-                cout << "Pattern found at index: "<< i << endl;
-        }
-    }
+    //         if (j == M)
+    //             cout << "Pattern found at index: "<< i << endl;
+    //     }
+    // }
 
-    int main()
-    {
-        // string text = "accabbcde";
-        // string pattern = "cde";
-        string text;
-        cin>>text;
-        string pat;
-        cin>>pat;
-        search(pat, text);
-        return 0;
-    }*/
+    // int main()
+    // {
+    //     // string text = "accabbcde";
+    //     // string pattern = "cde";
+    //     string text;
+    //     cin>>text;
+    //     string pat;
+    //     cin>>pat;
+    //     search(pat, text);
+    //     return 0;
+    // }
 
 
 
@@ -1844,7 +1850,7 @@ int main()
 
     /* Following program is a C++ implementation of Rabin Karp
     Algorithm given in the CLRS book */
-    #include <bits/stdc++.h>
+    /*#include <bits/stdc++.h>
     using namespace std;
 
     #define d 256
@@ -1920,4 +1926,176 @@ int main()
             search(pat, txt, q);
         }
         return 0;
-    }
+    }*/
+
+    // 15) computational geometry
+
+    // 15a) orientation of three points
+
+        /*#include <iostream>
+        using namespace std;
+
+        struct Point
+        {
+            int x, y;
+        };
+
+        int orientation(Point p1, Point p2, Point p3)
+        {
+
+            int val = (p2.y - p1.y) * (p3.x - p2.x) - (p2.x - p1.x) * (p3.y - p2.y);
+
+            if (val == 0) 
+                return 0;
+
+            return (val > 0)? 1: 2;
+        }
+
+        int main()
+        {
+            struct Point p1 = {0, 0}, p2 = {4, 4}, p3 = {8, 8};
+
+            int o = orientation(p1, p2, p3);
+
+            if (o==0)		 
+                cout << "CoLinear";
+
+            else if (o == 1) 
+                cout << "Clockwise";
+
+            else
+                cout << "AntiClockwise";
+
+            return 0;
+        }*/
+
+    // 15b) 2 lines itersecting or not
+
+        /*#include <iostream>
+        using namespace std;
+
+        struct Point
+        {
+            int x;
+            int y;
+        };
+
+        bool onSegment(Point p, Point q, Point r)
+        {
+            if (q.x <= max(p.x, r.x) && q.x >= min(p.x, r.x) && q.y <= max(p.y, r.y) && q.y >= min(p.y, r.y))
+                return true;
+            return false;
+        }
+        int orientation(Point p, Point q, Point r)
+        {
+            int val = (q.y - p.y) * (r.x - q.x) - (q.x - p.x) * (r.y - q.y);
+            if (val == 0)
+                return 0;
+            return (val > 0) ? 1 : 2;
+        }
+
+        bool intersecting(Point p1, Point q1, Point p2, Point q2)
+        {
+            int o1 = orientation(p1, q1, p2);
+            int o2 = orientation(p1, q1, q2);
+            int o3 = orientation(p2, q2, p1);
+            int o4 = orientation(p2, q2, q1);
+            if (o1 != o2 && o3 != o4)
+                return true;
+            if (o1 == 0 && onSegment(p1, p2, q1))
+                return true;
+            if (o2 == 0 && onSegment(p1, q2, q1))
+                return true;
+            if (o3 == 0 && onSegment(p2, p1, q2))
+                return true;
+            if (o4 == 0 && onSegment(p2, q1, q2))
+                return true;
+            return false;
+        }
+
+        int main()
+        {
+            struct Point p1 = {1, 1}, q1 = {10, 1};
+            struct Point p2 = {1, 2}, q2 = {10, 2};
+
+            intersecting(p1, q1, p2, q2) ? cout << "Yes\n" : cout << "No\n";
+            return 0;
+        }*/
+
+
+        // 16) Max flow graph
+
+        /*#include <iostream>
+        #include <limits.h>
+        #include <queue>
+        #include <string.h>
+        using namespace std;
+        #define V 6
+        bool bfs(int rGraph[V][V], int s, int t, int parent[])
+        {
+            bool visited[V];
+            memset(visited, 0, sizeof(visited));
+
+            queue<int> q;
+            q.push(s);
+            visited[s] = true;
+            parent[s] = -1;
+
+            while (!q.empty()) {
+                int u = q.front();
+                q.pop();
+                for (int v = 0; v < V; v++) {
+                    if (visited[v] == false && rGraph[u][v] > 0) {
+                        if (v == t) {
+                            parent[v] = u;
+                            return true;
+                        }
+                        q.push(v);
+                        parent[v] = u;
+                        visited[v] = true;
+                    }
+                }
+            }
+
+            return false;
+        }
+
+        int fordFulkerson(int graph[V][V], int s, int t)
+        {
+            int u, v;
+
+            int rGraph[V][V]; 
+            for (u = 0; u < V; u++)
+                for (v = 0; v < V; v++)
+                    rGraph[u][v] = graph[u][v];
+
+            int parent[V];
+
+            int max_flow = 0; 
+
+            while (bfs(rGraph, s, t, parent)) {
+                int path_flow = INT_MAX;
+                for (v = t; v != s; v = parent[v]) {
+                    u = parent[v];
+                    path_flow = min(path_flow, rGraph[u][v]);
+                }
+                for (v = t; v != s; v = parent[v]) {
+                    u = parent[v];
+                    rGraph[u][v] -= path_flow;
+                    rGraph[v][u] += path_flow;
+                }
+                max_flow += path_flow;
+            }
+            return max_flow;
+        }
+
+        int main()
+        {
+            int graph[V][V] = { { 0, 16, 13, 0, 0, 0 }, { 0, 0, 10, 12, 0, 0 },
+                    { 0, 4, 0, 0, 14, 0 }, { 0, 0, 9, 0, 0, 20 },
+                    { 0, 0, 0, 7, 0, 4 }, { 0, 0, 0, 0, 0, 0 } };
+
+            cout << "The maximum possible flow is "<< fordFulkerson(graph, 0, 5);
+
+            return 0;
+        }*/
